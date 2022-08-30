@@ -6,7 +6,7 @@
       <!--This is totally cosmetic and sets the HI-SPEED option that is displayed to the one that is closest to your selected speed.-->
       <action condition="(param LT #175)">maincpu.pb@40A171=01</action>
       <action condition="(param GE #175) AND (param LT #250)">maincpu.pb@40A171=02</action>
-      <action condition="(param GT #250)">maincpu.pb@40A171=03</action>
+      <action condition="(param GE #250)">maincpu.pb@40A171=03</action>
     </script>
     <script state="off">
       <action>maincpu.pd@4065B0=0x386</action>
