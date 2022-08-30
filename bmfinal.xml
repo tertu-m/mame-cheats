@@ -30,6 +30,6 @@
       <!-- restore the original instructions -->
       <action>maincpu.md@9B34=0x4C391001</action>
       <action>maincpu.md@9B38=0x004065B0</action>
-      <action>maincpu.mb@40A171=00</action>
+      <action>maincpu.pb@40A171=00</action>
     </script>
   </cheat>
