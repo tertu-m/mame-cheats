@@ -1,0 +1,34 @@
+ <cheat desc="Custom HI-SPEED">
+    <parameter min="105" max="1000" step="5"/> <comment>Overrides HI-SPEED option and song-based automatic speed. 105=1.05x speed.</comment>
+    <!--Works by overriding the base HI-SPEED value the game uses during scroll rate calculation.-->
+    <script state="run">
+      <action>maincpu.pd@4065B0=(0x386*param)/#100</action>
+      <action condition="(param LT #175)">maincpu.pb@40A171=01</action>
+      <action condition="(param GE #175) AND (param LT #250)">maincpu.pb@40A171=02</action>
+      <action condition="(param GT #250)">maincpu.pb@40A171=03</action>
+    </script>
+    <script state="off">
+      <action>maincpu.pd@4065B0=0x386</action>
+      <action>maincpu.pb@40A171=00</action>
+    </script>
+  </cheat>
+
+  <cheat desc="REGUL-SPEED">
+    <parameter min="120" max="1200" step="10"/> <comment>Overrides any HI-SPEED. 120=120 BPM scroll rate..</comment>
+    <!--Works by patching the function that calculates the scroll rate to use the same value always.-->
+    <script state="on">
+      <action>maincpu.mw@9B34=0x223C</action> <!--patch 9B34 to move.l #imm, d1-->
+      <action>maincpu.mw@9B3A=0x4E71</action> <!--the original instruction was 8 bytes, use a NOP for the remaining 2-->
+    </script>
+    <script state="run">
+      <action>maincpu.md@9B36=0x386*param</action> <!--set the immediate long to the REGUL-SPEED value -->
+      <!-- Show a garbage tile after the HI-SPEED setting -->
+      <action>maincpu.pb@40A171=05</action>
+    </script>
+    <script state="off">
+      <!-- restore the original instructions -->
+      <action>maincpu.md@9B34=0x4C391001</action>
+      <action>maincpu.md@9B38=0x004065B0</action>
+      <action>maincpu.mb@40A171=00</action>
+    </script>
+  </cheat>
